@@ -16,7 +16,7 @@ function generateFilters(dataCategory) {
 generateFilters(dataCategory);
 
 
-function generateDataWorks(dataWorks) {
+async function generateDataWorks(dataWorks) {
     for (let i = 0; i < dataWorks.length; i++) {
       const figure = dataWorks[i];
 
@@ -86,3 +86,4 @@ generateGalleryFilter();
 
 
     
+export {generateDataWorks,};

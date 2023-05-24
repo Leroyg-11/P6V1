@@ -1,6 +1,9 @@
 import { getDataWorks, getDataCategory } from "./api.js";
+import { generateDataWorks } from "./script.js";
 
-console.log("cocuou")
+// const generateWorks = await generateDataWorks();
+
+// console.log(generateWorks)
 
 
 async function checkLocal() {
