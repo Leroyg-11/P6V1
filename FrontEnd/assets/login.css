@@ -1,0 +1,68 @@
+.body_log{
+	background-color: #FFFEF8;
+}
+
+.container_log{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.container_log h2, .form{
+	padding: 15px 0;
+	/* color: red; */
+}
+
+.container_log .form_boxes{
+	margin: 10px 0;
+	border: none;
+	height: 50px;
+	width: 300px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+
+}
+
+.container_log .form_btn{
+	cursor: pointer;
+	width: 180px;
+	height: 40px;
+	border: none;
+	color: white;
+}
+
+.container_log .forget_password{
+	cursor: pointer;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+.form_error{
+	color: #B1663C;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+	margin-bottom: 5px;
+}
+
+.footer_log{
+	display: flex;
+	flex-direction: row-reverse;
+	width: 100%;
+	padding: 25px 30px;
+	background-color: white;
+	text-align: right;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+/*  Logout */
+.inactive{
+	display: none;
+}
+
+.visible{
+	color: #B1663C
+}
+
+.btn_logout{
+	cursor: pointer;
+}
+
