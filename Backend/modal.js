@@ -1,29 +1,32 @@
 import { getDataWorks, getDataCategory } from "./api.js";
-import { generateDataWorks } from "./script.js";
+// import coucou from './imprtgetGata'////////LOL//
 
-// const generateWorks = await generateDataWorks();
+const dataWorks = await getDataWorks();
 
-// console.log(generateWorks)
+const dataCategory = await getDataCategory();
 
 
 async function checkLocal() {
+  const modifyContainer = document.querySelectorAll(".icons_modify");
+    
+    function changeStyle(){
+      modifyContainer.forEach(function (modif) {
+        modif.classList.replace("inactive", "active")
+        modif.style.cursor = "pointer"
+        
+      })
+    }
+
+    
+
+
+
     const login = await document.querySelector(".login");
     const navUl = document.querySelector(".nav_ul");
     const logout = await document.createElement("li");
 
 
-    // const modifyContainer = document.querySelectorAll(".icons_modify");
-    // const modifyIcons = await document.createElement("p");
-    // const test = "sdfsjdf"
-
-    // modifyContainer.appendChild(modifyIcons)
-    // modifyIcons.appendChild(test)
     
-
-    // modifyContainer.forEach((modifyIcons) => {
-    //     document.createElement("p").appendChild(modifyIcons); 
-    //     item.className += "inactive"
-    // })
 
     
     logout.textContent = "logout";
@@ -42,6 +45,7 @@ async function checkLocal() {
         logout.classList.remove("inactive");
         logout.classList.add("visible");
         login.classList.add("inactive");
+        changeStyle()
        
 
       
@@ -98,6 +102,53 @@ async function checkLocal() {
 
     }
 
+
+    // Generate Category option 
+
+    const select = document.querySelector("#category")
+
+    dataCategory.forEach(category => {
+      select.innerHTML += `<option categoryId="${category.id}" value="${category.id}">${category.name}</option>`   
+    })
+
+    // Generate PreviewIMG
+
+    window.previewImage = (event) => {
+      /**
+       * Get the selected files.
+       */
+      const imageFiles = event.target.files;
+      /**
+       * Count the number of files selected.
+       */
+      const imageFilesLength = imageFiles.length;
+      /**
+       * If at least one image is selected, then proceed to display the preview.
+       */
+      if (imageFilesLength > 0) {
+          /**
+           * Get the image path.
+           */
+          const imageSrc = URL.createObjectURL(imageFiles[0]);
+          /**
+           * Select the image preview element.
+           */
+          const imagePreviewElement = document.querySelector("#preview-selected-image");
+          /**
+           * Assign the path to the image preview element.
+           */
+          imagePreviewElement.src = imageSrc;
+          /**
+           * Show the element by changing the display value to "block".
+           */
+          imagePreviewElement.style.display = "block";
+      }
+  };
+
+    
+
+
+ 
 
 
     async function initModal() {

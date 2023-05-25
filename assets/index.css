@@ -73,3 +73,26 @@ a:hover{
     background: #FFFFFF;
     border-radius: 60px;
 }
+
+/* Span Modifier   */
+
+article span{
+    line-height: 2em;
+}
+
+figure span {
+    top : 15px;
+    position: relative;
+    left: 10%;
+}
+
+
+.portfolio_title{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: auto ;
+    align-items: center;
+}
+
+

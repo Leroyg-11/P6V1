@@ -28,8 +28,9 @@
 .modal_one,  .modal_update{
 	/* overflow: auto; */
 	/* width: 95%; */
-	width: 50%;
-	height: 70%;
+	box-sizing: border-box;
+	width: 630px;
+	height: 670px;
 	background-color: #fff;
 	border-radius: 10px;
 	position: absolute;
@@ -155,24 +156,23 @@
 }
 
 .label_title{
-	left: 0;
-	margin-bottom: 10px;
+	margin: 15px 0;
+
 }
 .input_form{
 	padding: 17px;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
     background: rgb(255, 255, 255);
-
 }
+
+
 
 .disabled{
 	display: none;
 }
 
-select.arrow_input{
-	appearance: none;	
-}
+
 
 
 
@@ -217,29 +217,60 @@ select.arrow_input{
 
 /* MODAL UPDATE */
 
-/* .modal_update{
-	display: none;
-} */
+/* PREVIEW */
+
+.preview{
+	display: flex;
+	justify-content: center;
+}
+
+.image-preview-container {
+	box-sizing: border-box;
+    width: 420px;
+	height: 170px;
+	background-color: #E8F1F7;
+    margin: 0 auto;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 3rem;
+	position: relative
+}
+
+.image-preview-container img {
+	width: 30%;
+    display: none;
+    margin-bottom: 30px;
+    position: relative;
+	top: 0;
+	border: 1px solid red;
+
+}
 
 
+/* Input Button */
 
-
-
-
-/* .modal_update.active{
-
-	max-width: 630px;
-	max-height: 735px;
-	background-color: #fff;
-	border-radius: 10px;
+#image{
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
 	position: absolute;
-	top: 55%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	padding: 3% 3%;
-} */
+	z-index: -1;
+}
 
- 
+#image + .input_file_label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    display: inline-block;
+}
+
+#image:focus + .input_file_label,
+#image + .input_file_label:hover {
+    background-color: red;
+}
+
+
 
 
 

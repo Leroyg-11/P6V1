@@ -36,20 +36,32 @@
 		  	<button class="close_modal modal_trigger trigger_update close_update_modal"><i class="fa-solid fa-xmark"></i></button><br>
 		  	<h1 class="modal_title">Ajout photo</h1><br>
 			<form id="add_work_form" name="add_work_form">
-				<div class="bg_container_img" >
+				<div class="image-preview-container">
+					<div class="preview">
+						<img id="preview-selected-image" />
+					</div>
+					
+					<div class="btn_upload_preview">
+						<label class="input_file_label" for="file-upload">+ Ajouter photo</label>
+						<input type="file" id="image" name="image"
+						accept="image/*" onchange="previewImage(event);" />
+					</div>
+					<p class="p_form">jpg, png : 4mo max</p>
+				</div>
+				<!-- <div class="bg_container_img" >
 					<i class="fa-regular fa-image fa-xl i_form"></i>
 					<label for="image" class="image_label">+ Ajouter photo</label>
-					<input class="image_input inactive" type="file" id="image" name="image"><br>
+					<input class="image_input inactive" accept ="image/*" type="file" onchange="preview(evt)" id="image" name="image"><br>
+					<img class="" src="" id="img_preview"  alt="your img">
+					
 					<p class="p_form">jpg, png : 4mo max</p>
-				</div><br> 
+				</div><br>  -->
 				<label for="title" class="label_title">Titre</label>
 				<input type="text" class="input_form" id="title" name="title"><br>
 				<label for="category" class="label_title">Catégorie</label>
-				<select name="category" class="input_form arrow_input" id="category">
+				<select name="category" class="input_form" id="category">
 				<option class="disabled" categoryId="0" value="0" ></option>
-				<option categoryId="1" value="1">Objets</option>
-				<option categoryId="2" value="2">Appartements</option>
-				<option categoryId="3" value="3">Hotels & restaurants</option>
+				
 				</select>
 				<span class="separat"></span>
 
@@ -86,10 +98,10 @@
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
-			<span class="icons_modify"></span>
+			<span class="icons_modify inactive modal_trigger"><i class="fa-regular fa-pen-to-square "></i> modifier</span>
 		</figure>
 		<article>
-			<span class="icons_modify"></span>
+			<span class="icons_modify inactive modal_trigger"><i class="fa-regular fa-pen-to-square "></i> modifier</span>
 			<h2>Designer d'espace</h2>
 			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
 			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
@@ -98,8 +110,10 @@
 	</section>
 	
 	<section id="portfolio">
-        <h2>Mes Projets</h2>
-		<span class="icons_modify"></span>
+		<div class="portfolio_title">
+			<h2>Mes Projets</h2>
+			<span class="icons_modify inactive modal_trigger"><i class="fa-regular fa-pen-to-square "></i> modifier</span>
+		</div>
         <section class="filters" id="filters">
           <div class="filter filter_All" id="filter All">Tous</div>
         </section>
@@ -129,7 +143,11 @@
 	</nav>
 </footer>
 <script src="/Backend/script.js" type="module"></script>
+<script src="/Backend/api.js" type="module"></script>
+
 <script src="/Backend/modal.js" type="module"></script>
+
+
 
 
 </body>
