@@ -37,25 +37,19 @@
 		  	<h1 class="modal_title">Ajout photo</h1><br>
 			<form id="add_work_form" name="add_work_form">
 				<div class="image-preview-container">
+					<i class="fa-regular fa-image fa-xl i_form hidden"></i>
 					<div class="preview">
 						<img id="preview-selected-image" />
 					</div>
 					
-					<div class="btn_upload_preview">
-						<label class="input_file_label" for="file-upload">+ Ajouter photo</label>
-						<input type="file" id="image" name="image"
+					<div class="btn_upload_preview hidden" >
+						<label class="input_file_label hidden" for="file-upload">+ Ajouter photo</label>
+						<input class="hidden" type="file" id="image" name="image"
 						accept="image/*" onchange="previewImage(event);" />
 					</div>
-					<p class="p_form">jpg, png : 4mo max</p>
+					<p class="p_form hidden">jpg, png : 4mo max</p>
 				</div>
-				<!-- <div class="bg_container_img" >
-					<i class="fa-regular fa-image fa-xl i_form"></i>
-					<label for="image" class="image_label">+ Ajouter photo</label>
-					<input class="image_input inactive" accept ="image/*" type="file" onchange="preview(evt)" id="image" name="image"><br>
-					<img class="" src="" id="img_preview"  alt="your img">
-					
-					<p class="p_form">jpg, png : 4mo max</p>
-				</div><br>  -->
+				
 				<label for="title" class="label_title">Titre</label>
 				<input type="text" class="input_form" id="title" name="title"><br>
 				<label for="category" class="label_title">Catégorie</label>

@@ -125,7 +125,14 @@ async function checkLocal() {
       /**
        * If at least one image is selected, then proceed to display the preview.
        */
+
+      const hiddenBtn = document.querySelectorAll(".hidden");
+      
       if (imageFilesLength > 0) {
+        hiddenBtn.forEach(elements => {
+          elements.classList.add("inactive")
+        })  
+
           /**
            * Get the image path.
            */
@@ -141,7 +148,9 @@ async function checkLocal() {
           /**
            * Show the element by changing the display value to "block".
            */
-          imagePreviewElement.style.display = "block";
+          imagePreviewElement.classList.add("active");
+          
+          
       }
   };
 

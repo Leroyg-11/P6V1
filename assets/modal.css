@@ -126,34 +126,6 @@
 	padding: 10px 10px;
 }
 
-.bg_container_img{
-	background-color: #E8F1F7;
-	width: 100%;
-	height: 170px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-    justify-content: flex-end;
-	padding: 10px 0;
-
-}
-
-.i_form{
-	color : #B9C5CC;
-	font-size: 60px;
-	margin-bottom: 50px;
-}
-
-
-.image_label{
-	text-align: center;
-	background-color: #B9C5CC;
-	cursor: pointer;
-	width: 175px;
-	border-radius: 50px;
-	padding: 18px;
-
-}
 
 .label_title{
 	margin: 15px 0;
@@ -171,12 +143,6 @@
 .disabled{
 	display: none;
 }
-
-
-
-
-
-
 
 
 
@@ -219,58 +185,77 @@
 
 /* PREVIEW */
 
-.preview{
-	display: flex;
-	justify-content: center;
-}
+
 
 .image-preview-container {
 	box-sizing: border-box;
     width: 420px;
 	height: 170px;
 	background-color: #E8F1F7;
-    margin: 0 auto;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 3rem;
-	position: relative
+    padding: 1rem;
+	position: relative;
+	display: flex;
+	justify-content: center;
+    align-items: flex-end;
 }
 
 .image-preview-container img {
-	width: 30%;
-    display: none;
-    margin-bottom: 30px;
-    position: relative;
-	top: 0;
-	border: 1px solid red;
+	
 
+}
+
+.p_form{
+	position: absolute;
+}
+
+.i_form{
+	color: #B9C5CC;
+	position: absolute;
+    text-align: center;
+    top: 40px;
+    font-size: 4em;
 }
 
 
 /* Input Button */
 
-#image{
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
+
+
+ .preview{
+	width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+	justify-content: center;
+ }
+
+
+ .btn_upload_preview{
 	overflow: hidden;
 	position: absolute;
-	z-index: -1;
+    display: flex;
+    width: 40%;
+	padding-bottom: 6%;
+ }
+
+ .input_file_label{
+	background-color: #B9C5CC;
+    width: 175px;
+    position: relative;
+    border-radius: 50px;
+    text-align: center;
+    padding: 15px;
+ }
+
+ #image{
+	appearance: none;
+	opacity: 0;
+    padding: 9px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+
+	
 }
-
-#image + .input_file_label {
-    font-size: 1.25em;
-    font-weight: 700;
-    color: white;
-    background-color: black;
-    display: inline-block;
-}
-
-#image:focus + .input_file_label,
-#image + .input_file_label:hover {
-    background-color: red;
-}
-
-
-
-
 
