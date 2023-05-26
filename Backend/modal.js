@@ -17,10 +17,6 @@ async function checkLocal() {
       })
     }
 
-    
-
-
-
     const login = await document.querySelector(".login");
     const navUl = document.querySelector(".nav_ul");
     const logout = await document.createElement("li");
@@ -46,19 +42,12 @@ async function checkLocal() {
         logout.classList.add("visible");
         login.classList.add("inactive");
         changeStyle()
-       
-
-      
-
-    
         account.classList.remove("account");
         account.classList.add("connected");
     } else {
         // code error
         login.classList.add("visible");
-
     }
-    
       logout.addEventListener("click", function () {
         localStorage.clear();
         location.reload();
@@ -247,31 +236,61 @@ checkLocal();
 
 
 const form = document.querySelector("#add_work_form");
-const btn_submit = document.querySelector(".btn_submit")
 
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     // const url = "http://localhost:5678/api/works";
     const localToken = localStorage.getItem("token");
-    const htmlForm = e.currentTarget
-    const formData = new FormData(htmlForm)
+    const htmlForm = e.currentTarget;
+    const formData = new FormData(htmlForm);
 
     const createNewPost = async () => {
+      
+      
+
+      // function required(){
+      //   const form_img = e.target[0].value;
+      //   const form_title = e.target[1].value;
+      //   const form_category = e.target[2].value;
+      //   if(form_img || form_title || form_category == ""){
+          
+      //     alert("heyyyyyyyyyyy stopppp")
+
+      //     return;
+
+      //   }else{
+      //     alert("c'est OKKKKKK")
+      //   }
+      // }
+
+
+
+
         try {
+          
+
             const response =  await fetch("http://localhost:5678/api/works", {
             method: "POST",
             body: formData,
             headers: { Authorization: `Bearer ${localToken}`}
             })
+            // required();
+
+            
+
+            
+
+          
 
             
 
         }catch (error){
-            console.log(error)
+          console.log(error)
+
         }
     }
-    e.preventDefault()
+    
     await createNewPost()
 
 
