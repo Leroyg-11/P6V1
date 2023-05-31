@@ -1,5 +1,5 @@
 import { getDataWorks, getDataCategory } from "./api.js";
-// import coucou from './imprtgetGata'////////LOL//
+
 
 const dataWorks = await getDataWorks();
 
@@ -86,4 +86,3 @@ generateGalleryFilter();
 
 
     
-export {generateDataWorks,};
