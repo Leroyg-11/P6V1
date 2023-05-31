@@ -21,9 +21,6 @@ async function checkLocal() {
     const navUl = document.querySelector(".nav_ul");
     const logout = await document.createElement("li");
 
-
-    
-
     
     logout.textContent = "logout";
     const imgLi = await document.querySelector(".imgLi");
@@ -88,142 +85,236 @@ async function checkLocal() {
             modalUpdate.classList.remove("inactive");
             modalUpdate.classList.add("active");
         })
-
     }
+};
+checkLocal();
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Generate Category option 
+
+const select = document.querySelector("#category")
+
+dataCategory.forEach(category => {
+  select.innerHTML += `<option categoryId="${category.id}" value="${category.id}">${category.name}</option>`   
+})
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    // Generate Category option 
+window.previewImage = (event) => {
+  /**
+   * Get the selected files.
+   */
+  const imageFiles = event.target.files;
+  /**
+   * Count the number of files selected.
+   */
+  const imageFilesLength = imageFiles.length;
+  /**
+   * If at least one image is selected, then proceed to display the preview.
+   */
 
-    const select = document.querySelector("#category")
+  const hiddenBtn = document.querySelectorAll(".hidden");
+  
+  if (imageFilesLength > 0) {
+    hiddenBtn.forEach(elements => {
+      elements.classList.add("inactive")
+    })  
 
-    dataCategory.forEach(category => {
-      select.innerHTML += `<option categoryId="${category.id}" value="${category.id}">${category.name}</option>`   
-    })
-
-    // Generate PreviewIMG
-
-    window.previewImage = (event) => {
       /**
-       * Get the selected files.
+       * Get the image path.
        */
-      const imageFiles = event.target.files;
+      const imageSrc = URL.createObjectURL(imageFiles[0]);
       /**
-       * Count the number of files selected.
+       * Select the image preview element.
        */
-      const imageFilesLength = imageFiles.length;
+      const imagePreviewElement = document.querySelector("#preview-selected-image");
       /**
-       * If at least one image is selected, then proceed to display the preview.
+       * Assign the path to the image preview element.
        */
-
-      const hiddenBtn = document.querySelectorAll(".hidden");
+      imagePreviewElement.src = imageSrc;
+      /**
+       * Show the element by changing the display value to "block".
+       */
+      imagePreviewElement.classList.add("active");
       
-      if (imageFilesLength > 0) {
-        hiddenBtn.forEach(elements => {
-          elements.classList.add("inactive")
-        })  
-
-          /**
-           * Get the image path.
-           */
-          const imageSrc = URL.createObjectURL(imageFiles[0]);
-          /**
-           * Select the image preview element.
-           */
-          const imagePreviewElement = document.querySelector("#preview-selected-image");
-          /**
-           * Assign the path to the image preview element.
-           */
-          imagePreviewElement.src = imageSrc;
-          /**
-           * Show the element by changing the display value to "block".
-           */
-          imagePreviewElement.classList.add("active");
-          
-          
-      }
-  };
-
-    
-
-
- 
-
-
-    async function initModal() {
-        const dataWorks = await getDataWorks();
-    
-        function genererModalDataWorks(dataWorks) {
-          for (let i = 0; i < dataWorks.length; i++) {
-            const modalFigure = dataWorks[i];
-    
-            const sectionModalGallery = document.querySelector(".modal_gallery");
-            const workModalElement = document.createElement("modal_figure");
-            workModalElement.classList.add("modal_card");
-            workModalElement.setAttribute('id', `${dataWorks[i].id}`)
-            const imageModalElement = document.createElement("img");
-    
-            imageModalElement.src = modalFigure.imageUrl;
-            const editModalElement = document.createElement("p");
-            editModalElement.innerText = "éditer";
-    
-            const iconeModal = document.createElement("div");
-            iconeModal.classList.add("icone_modal");
-            iconeModal.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
-            iconeModal.setAttribute('id', `${dataWorks[i].id}`)
-    
-            // <i class="fa-solid fa-arrows-up-down-left-right"></i> MULTIFLECHES
-    
-            sectionModalGallery.appendChild(workModalElement);
-            workModalElement.appendChild(imageModalElement);
-            workModalElement.appendChild(editModalElement);
-            workModalElement.appendChild(iconeModal);
-    
-    
-            iconeModal.addEventListener("click", async function() {
-                
-                
-                const modalFigureId = this.getAttribute('id'); // Récupère l'ID de la modal figure
-                const id = modalFigureId;
-                const localToken = await localStorage.getItem("token");
-                // console.log(localToken)
-              
-              
-              const response = await fetch(`http://localhost:5678/api/works/${id}`, {
-                method: 'DELETE',
-                headers: {
-                  Authorization: `Bearer ${localToken}`, 
-                  // ${localToken.replace(/['"]+/g, '')} ==> Supprime les quotes qui entoure le token et qui bloque l'authentification
-                  "Content-Type": "application/json;charset=utf-8",
-                }
-              });
-              
-              if (response.status === "200") {
-                // Suppression réussie
-                
-                const modalFigureElement = document.getElementById(modalFigureId);
-                modalFigureElement.remove();
-                
-
-              } else if (response.status !== 200) {
-                // Non autorisé
-                console.log("Unauthorized");
-              } else {
-                // Erreur inattendue
-                console.log("Unexpected Error");
-              }
-            });
-            
-    
-          }
-        }
-        genererModalDataWorks(dataWorks);
-    }
-    
-    initModal();
-
+      
+  }
 };
 
-checkLocal();
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+async function initModal() {
+  const dataWorks = await getDataWorks();
+  
+  function modalDataWorkRefresh(dataWorks) {
+  for (let i = 0; i < dataWorks.length; i++) {
+    const modalFigure = dataWorks[i];
+
+    const sectionModalGallery = document.querySelector(".modal_gallery");
+    const workModalElement = document.createElement("modal_figure");
+    workModalElement.classList.add("modal_card");
+    workModalElement.setAttribute('id', `${dataWorks[i].id}`)
+    const imageModalElement = document.createElement("img");
+
+    imageModalElement.src = modalFigure.imageUrl;
+    const editModalElement = document.createElement("p");
+    editModalElement.innerText = "éditer";
+
+    const iconeModal = document.createElement("div");
+    iconeModal.classList.add("icone_modal");
+    iconeModal.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
+    iconeModal.setAttribute('id', `${dataWorks[i].id}`)
+
+    // <i class="fa-solid fa-arrows-up-down-left-right"></i> MULTIFLECHES
+
+    sectionModalGallery.appendChild(workModalElement);
+    workModalElement.appendChild(imageModalElement);
+    workModalElement.appendChild(editModalElement);
+    workModalElement.appendChild(iconeModal);
+  }
+  }
+  modalDataWorkRefresh(dataWorks);
+
+
+  const trashIcone = document.querySelectorAll(".icone_modal")
+
+  trashIcone.forEach((trashI) => trashI.addEventListener("click", trashCard));
+
+    async function trashCard(){
+      const modalFigureId = this.getAttribute('id'); // Récupère l'ID de la modal figure
+      const id = modalFigureId;
+      const localToken = await localStorage.getItem("token");
+
+      const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${localToken}`, 
+      
+      "Content-Type": "application/json;charset=utf-8",
+    }
+  });
+
+  if (response.status === "200" || "204") {
+    // Suppression réussie
+    
+    const modalFigureElement = document.getElementById(modalFigureId);
+    modalFigureElement.remove();
+    modalDataWorkRefresh();
+    
+
+    
+
+  } else if (response.status !== "200" || "204") {
+    console.log("Unauthorized");
+  } else {
+    // Erreur inattendue
+    console.log("Unexpected Error");
+  }
+
+      
+
+  } ; 
+
+  
+
+}
+
+initModal();
+
+
+
+
+
+
+
+
+// async function initModal() {
+//   const dataWorks = await getDataWorks();
+
+//   function genererModalDataWorks(dataWorks) {
+//     for (let i = 0; i < dataWorks.length; i++) {
+//       const modalFigure = dataWorks[i];
+
+//       const sectionModalGallery = document.querySelector(".modal_gallery");
+//       const workModalElement = document.createElement("modal_figure");
+//       workModalElement.classList.add("modal_card");
+//       workModalElement.setAttribute('id', `${dataWorks[i].id}`)
+//       const imageModalElement = document.createElement("img");
+
+//       imageModalElement.src = modalFigure.imageUrl;
+//       const editModalElement = document.createElement("p");
+//       editModalElement.innerText = "éditer";
+
+//       const iconeModal = document.createElement("div");
+//       iconeModal.classList.add("icone_modal");
+//       iconeModal.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
+//       iconeModal.setAttribute('id', `${dataWorks[i].id}`)
+
+//       // <i class="fa-solid fa-arrows-up-down-left-right"></i> MULTIFLECHES
+
+//       sectionModalGallery.appendChild(workModalElement);
+//       workModalElement.appendChild(imageModalElement);
+//       workModalElement.appendChild(editModalElement);
+//       workModalElement.appendChild(iconeModal);
+
+
+//       iconeModal.addEventListener("click", async function() {
+          
+          
+//           const modalFigureId = this.getAttribute('id'); // Récupère l'ID de la modal figure
+//           const id = modalFigureId;
+//           const localToken = await localStorage.getItem("token");
+//           // console.log(localToken)
+        
+        
+//         const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+//           method: 'DELETE',
+//           headers: {
+//             Authorization: `Bearer ${localToken}`, 
+//             // ${localToken.replace(/['"]+/g, '')} ==> Supprime les quotes qui entoure le token et qui bloque l'authentification
+//             "Content-Type": "application/json;charset=utf-8",
+//           }
+//         });
+        
+//         if (response.status === "200") {
+//           // Suppression réussie
+          
+//           const modalFigureElement = document.getElementById(modalFigureId);
+//           modalFigureElement.remove();
+//           modalFigure.classList.add("inactive")
+
+          
+
+//         } else if (response.status !== 200) {
+//           console.log("Unauthorized");
+//         } else {
+//           // Erreur inattendue
+//           console.log("Unexpected Error");
+//         }
+//       });
+
+      
+
+//     }
+//   }
+//   genererModalDataWorks(dataWorks);
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
