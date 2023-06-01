@@ -30,7 +30,6 @@
 	/* width: 95%; */
 	box-sizing: border-box;
 	width: 630px;
-	height: 670px;
 	background-color: #fff;
 	border-radius: 10px;
 	position: absolute;
@@ -74,6 +73,7 @@
 
 
 .modal_gallery{
+	overflow: auto;
 	width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -90,6 +90,7 @@
 
 .modal_gallery img{
 	width: 80px;
+	max-height: 100px;
     object-fit: cover;
 	padding: 4px;
 }

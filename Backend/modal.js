@@ -1,9 +1,33 @@
-import { getDataWorks, getDataCategory, generateDataWorks } from "./api.js";
+import { getDataWorks, getDataCategory } from "./api.js";
 // import coucou from './imprtgetGata'////////LOL//
 
-const dataWorks = await getDataWorks();
+// const dataWorks = await getDataWorks();
 
 const dataCategory = await getDataCategory();
+
+
+async function generateDataWorks(dataWorks) {
+  for (let i = 0; i < dataWorks.length; i++) {
+    const figure = dataWorks[i];
+
+    const sectionGallery = document.querySelector(".gallery");
+
+    const workElement = document.createElement("figure");
+
+    const imageElement = document.createElement("img");
+
+    imageElement.src = figure.imageUrl;
+    const nomElement = document.createElement("p");
+    nomElement.innerText = figure.title;
+
+    // On rattache la balise figure a la section gallery
+    sectionGallery.appendChild(workElement);
+    // On rattache l’image à workElement (la balise figure)
+    workElement.appendChild(imageElement);
+    workElement.appendChild(nomElement);
+  }
+}
+
 
 
 async function checkLocal() {
@@ -198,11 +222,14 @@ async function initModal() {
   });
 
   if (response.status === "200" || "204") {
+    
     // Suppression réussie
     
     const modalFigureElement = document.getElementById(modalFigureId);
     modalFigureElement.remove();
     modalDataWorkRefresh();
+    
+    
 
   } else if (response.status !== "200" || "204") {
     console.log("Unauthorized");
@@ -217,6 +244,7 @@ initModal();
 
 
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -224,6 +252,7 @@ const form = document.querySelector("#add_work_form");
 
 
 form.addEventListener('submit', async (e) => {
+  
     e.preventDefault();
     const localToken = localStorage.getItem("token");
     const htmlForm = e.currentTarget;
@@ -241,18 +270,17 @@ form.addEventListener('submit', async (e) => {
             body: formData,
             headers: { Authorization: `Bearer ${localToken}`}
             })
-            modalContainer.classList.replace("active", "inactive")
-            modalOne.classList.replace("inactive", "active")
+            modalOne.classList.replace("inactive", "active");
             
-            modalDataWorkRefresh();
-            
-
+            modalUpdate.classList.replace("active", "inactive");
         }
         catch (error){
           console.log(error)
         }
     }
     await createNewPost()
+    const dataWorks = await getDataWorks();
+    generateDataWorks(dataWorks);
 
 
 
