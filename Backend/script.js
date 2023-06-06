@@ -40,6 +40,7 @@ async function generateDataWorks(dataWorks) {
 generateDataWorks(dataWorks);
 
 
+
 function generateGalleryFilter () {
     const btnAll = document.querySelector(".filter_All");
     // console.log(btnAll)

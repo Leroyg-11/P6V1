@@ -1,0 +1,31 @@
+ dataWorks.forEach(idOfElement) => console.log(idOfElement)
+  
+  function modalDataWorkRefresh(dataWorks) {
+  for (let i = 0; i < dataWorks.length; i++) {
+    const modalFigure = dataWorks[i];
+    console.log(modalFigure.id)
+
+    const sectionModalGallery = document.querySelector(".modal_gallery");
+    const workModalElement = document.createElement("modal_figure");
+    workModalElement.classList.add("modal_card");
+    workModalElement.setAttribute('id', `${dataWorks[i].id}`)
+    const imageModalElement = document.createElement("img");
+
+    imageModalElement.src = modalFigure.imageUrl;
+    const editModalElement = document.createElement("p");
+    editModalElement.innerText = "éditer";
+
+    const iconeModal = document.createElement("div");
+    iconeModal.classList.add("icone_modal");
+    iconeModal.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
+    iconeModal.setAttribute('id', `${dataWorks[i].id}`)
+
+    // <i class="fa-solid fa-arrows-up-down-left-right"></i> MULTIFLECHES
+
+    sectionModalGallery.appendChild(workModalElement);
+    workModalElement.appendChild(imageModalElement);
+    workModalElement.appendChild(editModalElement);
+    workModalElement.appendChild(iconeModal);
+  }
+  }
+  modalDataWorkRefresh(dataWorks);

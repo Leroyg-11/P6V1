@@ -26,7 +26,7 @@
 }
 
 .modal_one,  .modal_update{
-	/* overflow: auto; */
+	overflow: auto;
 	/* width: 95%; */
 	box-sizing: border-box;
 	width: 630px;
@@ -74,6 +74,7 @@
 
 .modal_gallery{
 	overflow: auto;
+	max-height: 350px;
 	width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;

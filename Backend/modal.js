@@ -1,9 +1,10 @@
 import { getDataWorks, getDataCategory } from "./api.js";
 // import coucou from './imprtgetGata'////////LOL//
 
-// const dataWorks = await getDataWorks();
+const dataWorks = await getDataWorks();
 
 const dataCategory = await getDataCategory();
+
 
 
 async function generateDataWorks(dataWorks) {
@@ -27,6 +28,8 @@ async function generateDataWorks(dataWorks) {
     workElement.appendChild(nomElement);
   }
 }
+console.log("modalDatapagehtml", dataWorks)
+
 
 
 
@@ -172,10 +175,14 @@ window.previewImage = (event) => {
 
 async function initModal() {
   const dataWorks = await getDataWorks();
+  // console.log(dataWorks)
+
+  // dataWorks.forEach(idOfElement) => console.log(idOfElement)
   
-  function modalDataWorkRefresh(dataWorks) {
+  function modalDataWork(dataWorks) {
   for (let i = 0; i < dataWorks.length; i++) {
     const modalFigure = dataWorks[i];
+    // console.log(modalFigure.id)
 
     const sectionModalGallery = document.querySelector(".modal_gallery");
     const workModalElement = document.createElement("modal_figure");
@@ -200,44 +207,127 @@ async function initModal() {
     workModalElement.appendChild(iconeModal);
   }
   }
-  modalDataWorkRefresh(dataWorks);
+  modalDataWork(dataWorks);
 
+  function modalDataWorkRefresh(dataWorks) {
+    const sectionModalGallery = document.querySelector(".modal_gallery");
+    // Supprimer tous les projets existants
+    while (sectionModalGallery.firstChild) {
+      sectionModalGallery.removeChild(sectionModalGallery.firstChild);
+    }
+    dataWorks = dataWorks || getDataWorks();
+
+    for (let i = 0; i < dataWorks.length; i++) {
+      const modalFigure = dataWorks[i];
+  
+      const workModalElement = document.createElement("modal_figure");
+      workModalElement.classList.add("modal_card");
+      workModalElement.setAttribute('id', `${dataWorks[i].id}`)
+      const imageModalElement = document.createElement("img");
+  
+      imageModalElement.src = modalFigure.imageUrl;
+      const editModalElement = document.createElement("p");
+      editModalElement.innerText = "éditer";
+  
+      const iconeModal = document.createElement("div");
+      iconeModal.classList.add("icone_modal");
+      iconeModal.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
+      iconeModal.setAttribute('id', `${dataWorks[i].id}`)
+  
+      sectionModalGallery.appendChild(workModalElement);
+      workModalElement.appendChild(imageModalElement);
+      workModalElement.appendChild(editModalElement);
+      workModalElement.appendChild(iconeModal);
+    }
+  }
+
+
+  async function trashCard(){
+    const modalFigureId = this.getAttribute('id'); // Récupère l'ID de la modal figure
+    const id = modalFigureId;
+    const localToken = await localStorage.getItem("token");
+
+    try {
+      const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+      method: 'DELETE',
+      headers: {
+      Authorization: `Bearer ${localToken}`, 
+      "Content-Type": "application/json;charset=utf-8",
+      }
+        });
+        const newDataWork = await getDataWorks()
+        const modalFigureElement = document.getElementById(modalFigureId);
+        modalFigureElement.remove();
+        modalDataWorkRefresh(newDataWorks);
+        
+
+    }
+    catch(error) {
+      console.log(error)
+    }
+  }
 
   const trashIcone = document.querySelectorAll(".icone_modal")
 
   trashIcone.forEach((trashI) => trashI.addEventListener("click", trashCard));
 
-    async function trashCard(){
-      const modalFigureId = this.getAttribute('id'); // Récupère l'ID de la modal figure
-      const id = modalFigureId;
+
+
+
+
+  const form = document.querySelector("#add_work_form");
+
+
+
+
+  form.addEventListener('submit', async (e) => {
+    
+      e.preventDefault();
       const localToken = await localStorage.getItem("token");
+      const htmlForm = e.currentTarget;
+      const formData = new FormData(htmlForm);
+      const modalOne = document.querySelector(".modal_one");
+      const modalUpdate = document.querySelector(".modal_update");
+      const modalContainer = document.querySelector(".modal_container")
 
-      const response = await fetch(`http://localhost:5678/api/works/${id}`, {
-      method: 'DELETE',
-      headers: {
-      Authorization: `Bearer ${localToken}`, 
+      const createNewPost = async () => {
+          try {
+              const response =  await fetch("http://localhost:5678/api/works", {
+              method: "POST",
+              body: formData,
+              headers: { Authorization: `Bearer ${localToken}`}
+              })
+              // const dataWorks = await getDataWorks();
+              const newDataWorks = await getDataWorks();
+              modalDataWorkRefresh(newDataWorks)
+              
+              modalOne.classList.replace("inactive", "active");
+              modalUpdate.classList.replace("active", "inactive");
+              document.querySelector('#image').reset()
+              document.querySelector('.preview').classList.remove("active")
+
+              document.querySelector('.preview').classList.add("inactive")
+
+              
+              // initModal(dataWorks)
+              
+          }
+          catch (error){
+            console.log(error)
+          }
+          htmlForm.reset();
+      }
       
-      "Content-Type": "application/json;charset=utf-8",
-    }
-  });
+      
+      
+      // generateDataWorks(newDataWorks);
+      
+      createNewPost()
 
-  if (response.status === "200" || "204") {
-    
-    // Suppression réussie
-    
-    const modalFigureElement = document.getElementById(modalFigureId);
-    modalFigureElement.remove();
-    modalDataWorkRefresh();
-    
-    
 
-  } else if (response.status !== "200" || "204") {
-    console.log("Unauthorized");
-  } else {
-    // Erreur inattendue
-    console.log("Unexpected Error");
-  }
-  } ; 
+
+  })
+
 }
 initModal();
 
@@ -247,50 +337,6 @@ initModal();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-const form = document.querySelector("#add_work_form");
-
-
-form.addEventListener('submit', async (e) => {
-  
-    e.preventDefault();
-    const localToken = localStorage.getItem("token");
-    const htmlForm = e.currentTarget;
-    const formData = new FormData(htmlForm);
-    const modalOne = document.querySelector(".modal_one");
-    const modalUpdate = document.querySelector(".modal_update");
-    const modalContainer = document.querySelector(".modal_container")
-
-
-    const createNewPost = async () => {
-      
-        try {
-            const response =  await fetch("http://localhost:5678/api/works", {
-            method: "POST",
-            body: formData,
-            headers: { Authorization: `Bearer ${localToken}`}
-            })
-            modalOne.classList.replace("inactive", "active");
-            
-            modalUpdate.classList.replace("active", "inactive");
-        }
-        catch (error){
-          console.log(error)
-        }
-    }
-    await createNewPost()
-    const dataWorks = await getDataWorks();
-    generateDataWorks(dataWorks);
-
-
-
-})
-
-
-
-
-
-    
 
 
 
