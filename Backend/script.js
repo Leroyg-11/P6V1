@@ -43,13 +43,9 @@ generateDataWorks(dataWorks);
 
 function generateGalleryFilter () {
     const btnAll = document.querySelector(".filter_All");
-    // console.log(btnAll)
     const btnOne = document.querySelector('div[selector="1"]');
-    // console.log(btnOne)
     const btnTwo = document.querySelector('div[selector="2"]');
-    // console.log(btnTwo)
     const btnThree = document.querySelector('div[selector="3"]');
-    // console.log(btnThree)
     
     btnAll.addEventListener("click", function () {
         const trier = dataWorks.filter(function (dataWork) {

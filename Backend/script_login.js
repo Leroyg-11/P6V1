@@ -22,7 +22,6 @@ async function postUser(form_mail, form_password) {
       });
       const dataResponse = await response.json();
       tokenAuth(dataResponse.userId, dataResponse.token, response.status);
-      console.log(dataResponse);
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +52,6 @@ function tokenAuth(userId, token, status) {
 
 async function checkLocal() {
   const localToken = await localStorage.getItem("token");
-  console.log(localToken);
 
   if (localToken === "undefined") {
     errorHtml.innerHTML = errorForm;

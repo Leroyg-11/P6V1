@@ -27,7 +27,6 @@ async function generateDataWorks(dataWorks) {
     workElement.appendChild(nomElement);
   }
 }
-console.log("modalDatapagehtml", dataWorks)
 
 
 
@@ -174,14 +173,11 @@ window.previewImage = (event) => {
 
 async function initModal() {
   const dataWorks = await getDataWorks();
-  // console.log(dataWorks)
 
-  // dataWorks.forEach(idOfElement) => console.log(idOfElement)
   
   function modalDataWork(dataWorks) {
   for (let i = 0; i < dataWorks.length; i++) {
     const modalFigure = dataWorks[i];
-    // console.log(modalFigure.id)
 
     const sectionModalGallery = document.querySelector(".modal_gallery");
     const workModalElement = document.createElement("modal_figure");
