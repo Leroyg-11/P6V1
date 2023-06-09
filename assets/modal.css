@@ -192,26 +192,23 @@
 .image-preview-container {
 	box-sizing: border-box;
     width: 420px;
-	height: 170px;
-	background-color: #E8F1F7;
+    height: 170px;
+    background-color: #E8F1F7;
     border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 1rem;
-	position: relative;
-	display: flex;
-	justify-content: center;
-    align-items: flex-end;
+    /* position: relative; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 
 .p_form{
-	position: absolute;
+	/* position: absolute; */
 }
 
 .i_form{
 	color: #B9C5CC;
-	position: absolute;
-    text-align: center;
-    top: 40px;
     font-size: 4em;
 }
 
@@ -223,19 +220,21 @@
  .preview{
 	width: 100%;
     height: 100%;
-    overflow: hidden;
     display: flex;
 	justify-content: center;
  }
 
 
  .btn_upload_preview{
-	overflow: hidden;
-	position: absolute;
-    display: flex;
-    width: 40%;
-	padding-bottom: 6%;
- }
+	display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 30px;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+}
+ 
 
  .input_file_label{
 	background-color: #B9C5CC;
@@ -244,15 +243,20 @@
     border-radius: 50px;
     text-align: center;
     padding: 15px;
- }
+	margin-bottom: -10px;
+}
+ 
 
  #image{
 	appearance: none;
 	opacity: 0;
     padding: 9px;
     position: absolute;
-    left: 0;
-    width: 100%;
+	cursor: pointer;
+    height: 40px;
+    overflow: hidden;
+    /* left: 0; */
+    width: 30%;
 
 	
 }

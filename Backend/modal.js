@@ -126,47 +126,84 @@ dataCategory.forEach(category => {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-window.previewImage = (event) => {
-  /**
-   * Get the selected files.
-   */
-  const imageFiles = event.target.files;
-  /**
-   * Count the number of files selected.
-   */
-  const imageFilesLength = imageFiles.length;
-  /**
-   * If at least one image is selected, then proceed to display the preview.
-   */
-
-  const hiddenBtn = document.querySelectorAll(".hidden");
+function tryPreview() {
+  window.previewImage = (event) => {
+    /**
+     * Get the selected files.
+     */
+    const imageFiles = event.target.files;
+    /**
+     * Count the number of files selected.
+     */
+    const imageFilesLength = imageFiles.length;
+    /**
+     * If at least one image is selected, then proceed to display the preview.
+     */
   
-  if (imageFilesLength > 0) {
-    hiddenBtn.forEach(elements => {
-      elements.classList.add("inactive")
-    })  
+    const hiddenBtn = document.querySelectorAll(".hidden");
 
-      /**
-       * Get the image path.
-       */
-      const imageSrc = URL.createObjectURL(imageFiles[0]);
-      /**
-       * Select the image preview element.
-       */
-      const imagePreviewElement = document.querySelector("#preview-selected-image");
-      /**
-       * Assign the path to the image preview element.
-       */
-      imagePreviewElement.src = imageSrc;
-      /**
-       * Show the element by changing the display value to "block".
-       */
-      imagePreviewElement.classList.add("active");
+    const picElements = document.querySelectorAll(".pic");
+
+
+    picElements.forEach(elements => {
+      elements.classList.add("inactive")
+      elements.classList.remove("active")
+    })
+
+ 
+
+    if (imageFilesLength > 0) {
+      hiddenBtn.forEach(elements => {
+        
+        elements.classList.add("inactive")
+      })  
+
+       
       
-      
-  }
-};
+  
+        /**
+         * Get the image path.
+         */
+        const imageSrc = URL.createObjectURL(imageFiles[0]);
+        /**
+         * Select the image preview element.
+         */
+        const imagePreviewElement = document.querySelector("#preview-selected-image");
+        /**
+         * Assign the path to the image preview element.
+         */
+        imagePreviewElement.src = imageSrc;
+        /**
+         * Show the element by changing the display value to "block".
+         */
+        imagePreviewElement.classList.add("active");
+        
+        
+    // }else{
+    //   hiddenBtn.forEach(elements => {
+    //     elements.classList.remove("inactive")
+    //     elements.classList.add("active")
+
+    //   })  
+
+
+    }
+    // picElements.forEach(elements => {
+    //     elements.classList.remove("hidden")
+    //     elements.classList.add("inactive")
+    //   })
+
+      // if (imageFilesLength > 0) {
+      //   picElements.forEach(elements => {
+      //     elements.classList.add("inactive")
+      //   })
+      // } 
+  };
+  
+
+}
+tryPreview()
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -285,6 +322,8 @@ async function initModal() {
       const modalUpdate = document.querySelector(".modal_update");
       const modalContainer = document.querySelector(".modal_container")
 
+      // const resetInputImg = document.getElementById("#preview-selected-image") 
+
       const createNewPost = async () => {
           try {
               const response =  await fetch("http://localhost:5678/api/works", {
@@ -298,13 +337,35 @@ async function initModal() {
               
               modalOne.classList.replace("inactive", "active");
               modalUpdate.classList.replace("active", "inactive");
-              document.querySelector('#image').reset()
-              document.querySelector('.preview').classList.remove("active")
+              
 
-              document.querySelector('.preview').classList.add("inactive")
+              const imagePreviewElement = document.querySelector("#preview-selected-image");
+      
+              imagePreviewElement.src = "";
+              imagePreviewElement.classList.remove("active")
+
+              const picElements = document.querySelectorAll(".pic");
+
+
+              picElements.forEach(elements => {
+                elements.classList.remove("hidden")
+                elements.classList.remove("inactive")
+                elements.classList.add("active")
+              })
+              tryPreview()
 
               
-              // initModal(dataWorks)
+
+
+
+              
+
+
+            
+
+
+
+             
               
           }
           catch (error){
@@ -315,9 +376,10 @@ async function initModal() {
       
       
       
-      // generateDataWorks(newDataWorks);
+      
       
       createNewPost()
+      
 
 
 

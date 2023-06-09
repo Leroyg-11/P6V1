@@ -34,20 +34,22 @@
 		<div class="modal_update inactive">
 			<button class="previous_modal close_update_modal"><i class="fa-solid fa-arrow-left"></i></button>
 		  	<button class="close_modal modal_trigger trigger_update close_update_modal"><i class="fa-solid fa-xmark"></i></button><br>
-		  	<h1 class="modal_title">Ajout photo</h1><br>
-			<form id="add_work_form" name="add_work_form">
+			  <form id="add_work_form" name="add_work_form">
+				<h1 class="modal_title">Ajout photo</h1><br>
 				<div class="image-preview-container">
-					<i class="fa-regular fa-image fa-xl i_form hidden"></i>
 					<div class="preview">
 						<img id="preview-selected-image" />
 					</div>
 					
-					<div class="btn_upload_preview hidden" >
-						<label class="input_file_label hidden" for="file-upload">+ Ajouter photo</label>
-						<input class="hidden" type="file" id="image" name="image"
+					<div class="btn_upload_preview" >
+						<i class="fa-regular fa-image fa-xl i_form hidden pic"></i>
+
+						<label class="input_file_label hidden pic" for="file-upload">+ Ajouter photo</label>
+						<input class="hidden pic" type="file" id="image" name="image"
 						accept="image/*" onchange="previewImage(event);" />
+						<p class="p_form hidden pic">jpg, png : 4mo max</p>
 					</div>
-					<p class="p_form hidden">jpg, png : 4mo max</p>
+					
 				</div>
 				
 				<label for="title" class="label_title">Titre</label>
