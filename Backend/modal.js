@@ -6,27 +6,7 @@ const dataCategory = await getDataCategory();
 
 
 
-async function generateDataWorks(dataWorks) {
-  for (let i = 0; i < dataWorks.length; i++) {
-    const figure = dataWorks[i];
 
-    const sectionGallery = document.querySelector(".gallery");
-
-    const workElement = document.createElement("figure");
-
-    const imageElement = document.createElement("img");
-
-    imageElement.src = figure.imageUrl;
-    const nomElement = document.createElement("p");
-    nomElement.innerText = figure.title;
-
-    // On rattache la balise figure a la section gallery
-    sectionGallery.appendChild(workElement);
-    // On rattache l’image à workElement (la balise figure)
-    workElement.appendChild(imageElement);
-    workElement.appendChild(nomElement);
-  }
-}
 
 
 
@@ -128,76 +108,34 @@ dataCategory.forEach(category => {
 
 function tryPreview() {
   window.previewImage = (event) => {
-    /**
-     * Get the selected files.
-     */
+    
     const imageFiles = event.target.files;
-    /**
-     * Count the number of files selected.
-     */
+    
     const imageFilesLength = imageFiles.length;
-    /**
-     * If at least one image is selected, then proceed to display the preview.
-     */
-  
+    
     const hiddenBtn = document.querySelectorAll(".hidden");
 
     const picElements = document.querySelectorAll(".pic");
-
 
     picElements.forEach(elements => {
       elements.classList.add("inactive")
       elements.classList.remove("active")
     })
-
- 
-
     if (imageFilesLength > 0) {
       hiddenBtn.forEach(elements => {
         
         elements.classList.add("inactive")
       })  
-
-       
-      
-  
-        /**
-         * Get the image path.
-         */
         const imageSrc = URL.createObjectURL(imageFiles[0]);
-        /**
-         * Select the image preview element.
-         */
+
         const imagePreviewElement = document.querySelector("#preview-selected-image");
-        /**
-         * Assign the path to the image preview element.
-         */
+     
         imagePreviewElement.src = imageSrc;
-        /**
-         * Show the element by changing the display value to "block".
-         */
+      
         imagePreviewElement.classList.add("active");
         
-        
-    // }else{
-    //   hiddenBtn.forEach(elements => {
-    //     elements.classList.remove("inactive")
-    //     elements.classList.add("active")
-
-    //   })  
-
-
     }
-    // picElements.forEach(elements => {
-    //     elements.classList.remove("hidden")
-    //     elements.classList.add("inactive")
-    //   })
-
-      // if (imageFilesLength > 0) {
-      //   picElements.forEach(elements => {
-      //     elements.classList.add("inactive")
-      //   })
-      // } 
+ 
   };
   
 
@@ -210,6 +148,8 @@ tryPreview()
 
 async function initModal() {
   const dataWorks = await getDataWorks();
+
+
 
   
   function modalDataWork(dataWorks) {
@@ -273,6 +213,38 @@ async function initModal() {
     }
   }
 
+  function generateGalleryDataWorks(dataWorks) {
+    const sectionGallery = document.querySelector(".gallery");
+  
+    while (sectionGallery.firstChild) {
+      sectionGallery.removeChild(sectionGallery.firstChild);
+    }
+    dataWorks = dataWorks || getDataWorks();
+  
+  
+    for (let i = 0; i < dataWorks.length; i++) {
+      const figure = dataWorks[i];
+  
+  
+      const workElement = document.createElement("figure");
+  
+      const imageElement = document.createElement("img");
+  
+      imageElement.src = figure.imageUrl;
+      const nomElement = document.createElement("p");
+      nomElement.innerText = figure.title;
+  
+      // On rattache la balise figure a la section gallery
+      sectionGallery.appendChild(workElement);
+      // On rattache l’image à workElement (la balise figure)
+      workElement.appendChild(imageElement);
+      workElement.appendChild(nomElement);
+    }
+  }
+
+  await generateGalleryDataWorks(dataWorks);
+
+
 
   async function trashCard(){
     const modalFigureId = this.getAttribute('id'); // Récupère l'ID de la modal figure
@@ -290,9 +262,8 @@ async function initModal() {
         const newDataWork = await getDataWorks()
         const modalFigureElement = document.getElementById(modalFigureId);
         modalFigureElement.remove();
-        modalDataWorkRefresh(newDataWorks);
-        
-
+        modalDataWorkRefresh(newDataWork);
+        generateGalleryDataWorks(newDataWork)
     }
     catch(error) {
       console.log(error)
@@ -332,8 +303,8 @@ async function initModal() {
               headers: { Authorization: `Bearer ${localToken}`}
               })
               // const dataWorks = await getDataWorks();
-              const newDataWorks = await getDataWorks();
-              modalDataWorkRefresh(newDataWorks)
+              const newDataWork = await getDataWorks();
+              modalDataWorkRefresh(newDataWork)
               
               modalOne.classList.replace("inactive", "active");
               modalUpdate.classList.replace("active", "inactive");
@@ -354,35 +325,13 @@ async function initModal() {
               })
               tryPreview()
 
-              
-
-
-
-              
-
-
-            
-
-
-
-             
-              
           }
           catch (error){
             console.log(error)
           }
           htmlForm.reset();
       }
-      
-      
-      
-      
-      
       createNewPost()
-      
-
-
-
   })
 
 }
