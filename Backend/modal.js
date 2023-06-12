@@ -31,8 +31,8 @@ async function checkLocal() {
     const imgLi = await document.querySelector(".imgLi");
     const account = await document.querySelector(".account");
 
-    navUl.appendChild(logout);
     navUl.insertBefore(logout, imgLi);
+    navUl.appendChild(logout);
     logout.classList.add("inactive");
 
     logout.classList.add("btn_logout");
@@ -242,9 +242,11 @@ async function initModal() {
     }
   }
 
-  await generateGalleryDataWorks(dataWorks);
+  generateGalleryDataWorks(dataWorks);
 
+  const trashIcone = document.querySelectorAll(".icone_modal")
 
+  trashIcone.forEach((trashI) => trashI.addEventListener("click", trashCard));
 
   async function trashCard(){
     const modalFigureId = this.getAttribute('id'); // Récupère l'ID de la modal figure
@@ -262,17 +264,15 @@ async function initModal() {
         const newDataWork = await getDataWorks()
         const modalFigureElement = document.getElementById(modalFigureId);
         modalFigureElement.remove();
-        modalDataWorkRefresh(newDataWork);
-        generateGalleryDataWorks(newDataWork)
+        await modalDataWorkRefresh(newDataWork);
+        await generateGalleryDataWorks(newDataWork)
     }
     catch(error) {
       console.log(error)
     }
   }
 
-  const trashIcone = document.querySelectorAll(".icone_modal")
 
-  trashIcone.forEach((trashI) => trashI.addEventListener("click", trashCard));
 
 
 
@@ -341,8 +341,9 @@ initModal();
 
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
