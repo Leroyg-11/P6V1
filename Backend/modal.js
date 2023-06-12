@@ -268,6 +268,58 @@ async function initModal() {
     }
   }
 
+  const trashAllIcone = document.querySelector(".delete_gallery")
+
+  trashAllIcone.addEventListener('click', trashAll)
+
+  // async function trashAll(){
+
+  //   try {
+  //     const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+  //     method: 'DELETE',
+  //     headers: {
+  //     Authorization: `Bearer ${localToken}`, 
+  //     "Content-Type": "application/json;charset=utf-8",
+  //     }
+  //       });
+  //       const newDataWork = await getDataWorks()
+  //       const modalFigureElement = document.getElementById(modalFigureId);
+  //       modalFigureElement.remove();
+  //       generateGalleryDataWorks(newDataWork)
+  //   }
+  //   catch(error) {
+  //     console.log(error)
+  //   }
+
+  // }
+
+  async function trashAll() {
+    const localToken = await localStorage.getItem("token");
+  
+    try {
+      for (const work of dataWorks) {
+        await fetch(`http://localhost:5678/api/works/${work.id}`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${localToken}`, 
+            "Content-Type": "application/json;charset=utf-8",
+          }
+        });
+      }
+  
+      // Supprimer tous les travaux de la galerie
+      const sectionModalGallery = document.querySelector(".modal_gallery");
+      sectionModalGallery.innerHTML = "";
+  
+      // Générer la galerie mise à jour
+      const newDataWorks = await getDataWorks();
+      generateGalleryDataWorks(newDataWorks);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+
 
 
 
@@ -301,6 +353,8 @@ async function initModal() {
               // const dataWorks = await getDataWorks();
               const newDataWork = await getDataWorks();
               modalDataWorkRefresh(newDataWork)
+              generateGalleryDataWorks(newDataWork)
+
               
               modalOne.classList.replace("inactive", "active");
               modalUpdate.classList.replace("active", "inactive");
@@ -319,10 +373,21 @@ async function initModal() {
                 elements.classList.remove("inactive")
                 elements.classList.add("active")
               })
+
+
+              if(response.statusText == "Created"){
+                
+              } else{
+                window.alert("Veuillez remplir tous les champs")
+              }
               tryPreview()
 
           }
           catch (error){
+            const inputForm = document.querySelectorAll(".input_form")
+            const inputError = inputForm.values;
+            console.log(inputError)
+            
             console.log(error)
           }
           htmlForm.reset();
