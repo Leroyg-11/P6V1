@@ -148,9 +148,6 @@ tryPreview()
 
 async function initModal() {
   const dataWorks = await getDataWorks();
-
-
-
   
   function modalDataWork(dataWorks) {
   for (let i = 0; i < dataWorks.length; i++) {
@@ -264,8 +261,7 @@ async function initModal() {
         const newDataWork = await getDataWorks()
         const modalFigureElement = document.getElementById(modalFigureId);
         modalFigureElement.remove();
-        await modalDataWorkRefresh(newDataWork);
-        await generateGalleryDataWorks(newDataWork)
+        generateGalleryDataWorks(newDataWork)
     }
     catch(error) {
       console.log(error)
