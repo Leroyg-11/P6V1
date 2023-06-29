@@ -1,5 +1,9 @@
 /* MODAL */
 
+.inactive{
+	display: none;
+}
+
 
 .modal_container{
 	display: none;
@@ -208,6 +212,7 @@
 }
 
 .i_form{
+	padding-top: 10px;
 	color: #B9C5CC;
     font-size: 4em;
 }

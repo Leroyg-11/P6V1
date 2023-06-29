@@ -79,16 +79,20 @@ async function checkLocal() {
     function toggleModal() {
         const modalUpdate = document.querySelector(".modal_update");
         const btnAdd = document.querySelector(".add_work");
+        const affichepreview = document.querySelector(".pre_view")
+
+        
 
         modalContainer.classList.toggle("active");
         modalOne.classList.remove("inactive");
 
         
         btnAdd.addEventListener("click", function(){
-            modalOne.classList.remove("active");
-            modalOne.classList.add("inactive");
-            modalUpdate.classList.remove("inactive");
-            modalUpdate.classList.add("active");
+          affichepreview.classList.remove("preview")
+          modalOne.classList.remove("active");
+          modalOne.classList.add("inactive");
+          modalUpdate.classList.remove("inactive");
+          modalUpdate.classList.add("active");
         })
     }
 };
@@ -117,6 +121,8 @@ function tryPreview() {
 
     const picElements = document.querySelectorAll(".pic");
 
+    const affichepreview = document.querySelector(".pre_view")
+
     picElements.forEach(elements => {
       elements.classList.add("inactive")
       elements.classList.remove("active")
@@ -133,6 +139,7 @@ function tryPreview() {
         imagePreviewElement.src = imageSrc;
       
         imagePreviewElement.classList.add("active");
+        affichepreview.classList.add("preview")
         
     }
  
@@ -272,26 +279,6 @@ async function initModal() {
 
   trashAllIcone.addEventListener('click', trashAll)
 
-  // async function trashAll(){
-
-  //   try {
-  //     const response = await fetch(`http://localhost:5678/api/works/${id}`, {
-  //     method: 'DELETE',
-  //     headers: {
-  //     Authorization: `Bearer ${localToken}`, 
-  //     "Content-Type": "application/json;charset=utf-8",
-  //     }
-  //       });
-  //       const newDataWork = await getDataWorks()
-  //       const modalFigureElement = document.getElementById(modalFigureId);
-  //       modalFigureElement.remove();
-  //       generateGalleryDataWorks(newDataWork)
-  //   }
-  //   catch(error) {
-  //     console.log(error)
-  //   }
-
-  // }
 
   async function trashAll() {
     const localToken = await localStorage.getItem("token");
