@@ -154,7 +154,7 @@ tryPreview()
 
 
 async function initModal() {
-  const dataWorks = await getDataWorks();
+  // const dataWorks = await getDataWorks();
   
   function modalDataWork(dataWorks) {
   for (let i = 0; i < dataWorks.length; i++) {
